@@ -1,3 +1,5 @@
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,18 +104,20 @@ public class AddressBook {
                 }
             }
             if (k == 3) {
+                ArrayList<Contact> cityCon=new ArrayList<Contact>();
                 System.out.println("Enter the city");
                 sc.nextLine();
                 String city = sc.nextLine();
-                hashMap.values().stream().forEach(c->System.out.println(c.viewByCity(city)));
-
+                hashMap.values().stream().forEach(c->cityCon.addAll(c.viewByCity(city)));
+                System.out.println("View By City : "+cityCon);
             }
             if (k == 4) {
+                ArrayList<Contact> stateCon=new ArrayList<Contact>();
                 System.out.println("Enter the state");
                 sc.nextLine();
                 String state = sc.nextLine();
-                hashMap.values().stream().forEach(c->System.out.println(c.viewByState(state)));
-
+                hashMap.values().stream().forEach(c->stateCon.addAll(c.viewByState(state)));
+                System.out.println(stateCon);
             }
         }
     }
