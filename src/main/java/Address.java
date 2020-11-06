@@ -20,7 +20,7 @@ public class Address {
     }
 
     public void addContact(Contact contactObj) {
-        if(!checkDuplicate(contactObj))
+        if (!checkDuplicate(contactObj))
             arrayList.add(contactObj);
         else
             System.out.println("Duplicate found");
@@ -54,6 +54,7 @@ public class Address {
         sc.close();
         return f;
     }
+
     public boolean removeContact(String firstName, String lastName) {
         boolean f = false;
         for (Contact obj : arrayList) {
@@ -70,13 +71,27 @@ public class Address {
         return arrayList.stream().filter(list -> list.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
     }
 
-    public List<Contact> viewByState(String state){
+    public List<Contact> viewByState(String state) {
         return arrayList.stream().filter(list -> list.getState().equalsIgnoreCase(state)).collect(Collectors.toList());
 
     }
 
-    public List<Contact> sortByFirstname(){
+    public List<Contact> sortByFirstname() {
         return arrayList.stream().sorted(Comparator.comparing(Contact::getFirstName).thenComparing(Contact::getLastName)).collect(Collectors.toList());
 
+    }
+
+    public List<Contact> sortByCity() {
+        return arrayList.stream().sorted(Comparator.comparing(Contact::getCity)).collect(Collectors.toList());
+
+    }
+
+    public List<Contact> sortByState() {
+        return arrayList.stream().sorted(Comparator.comparing(Contact::getState)).collect(Collectors.toList());
+
+    }
+
+    public List<Contact> sortByZip() {
+        return arrayList.stream().sorted(Comparator.comparingLong(Contact::getZip)).collect(Collectors.toList());
     }
 }

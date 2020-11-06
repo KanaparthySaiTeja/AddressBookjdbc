@@ -11,7 +11,7 @@ public class AddressBook {
         int z = 0;
         while (z == 0) {
             System.out.println(
-                    "1.Create Address Book\n2.Add Details to Address Book\n3.View contact by city \n4.View By State\n5.Sort by first name\n6.Exit");
+                    "1.Create Address Book\n2.Add Details to Address Book\n3.View contact by city \n4.View By State\n5.Sort by first name\n6.Sort by city\n7.Sort by state\n8.Sort by zip\n9.Exit");
             int k = sc.nextInt();
             if (k == 1) {
                 System.out.println("Enter the name of address book to be created");
@@ -122,6 +122,15 @@ public class AddressBook {
             }
             if (k == 5) {
                 hashMap.values().stream().forEach(c -> System.out.println(c.sortByFirstname()));
+            }
+            if (k == 6) {
+                hashMap.values().stream().forEach(c -> System.out.println(c.sortByCity()));
+            }
+            if (k == 7) {
+                hashMap.values().stream().forEach(c -> System.out.println(c.sortByState()));
+            }
+            if (k == 8) {
+                hashMap.values().stream().forEach(c -> System.out.println(c.sortByZip()));
             }
         }
         sc.close();
