@@ -155,7 +155,7 @@ public class AddressBook {
     public static void writeFile() {
         BufferedWriter bf = null;
         try {
-            String fileName = "F:\\addressbook.txt";
+            String fileName = "addressbook.txt";
             File f = new File(fileName);
             boolean res = f.createNewFile();
             if (res == false) {
@@ -180,7 +180,7 @@ public class AddressBook {
         BufferedReader bf = null;
         int ch = 0;
         try {
-            String fileName = "F:\\addressbook.txt";
+            String fileName = "addressbook.txt";
             File f = new File(fileName);
             boolean res = f.createNewFile();
             if (res == false) {
