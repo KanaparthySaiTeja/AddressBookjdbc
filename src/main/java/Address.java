@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -50,6 +51,7 @@ public class Address {
                 break;
             }
         }
+        sc.close();
         return f;
     }
     public boolean removeContact(String firstName, String lastName) {
@@ -73,4 +75,8 @@ public class Address {
 
     }
 
+    public List<Contact> sortByFirstname(){
+        return arrayList.stream().sorted(Comparator.comparing(Contact::getFirstName).thenComparing(Contact::getLastName)).collect(Collectors.toList());
+
+    }
 }
