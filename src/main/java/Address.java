@@ -20,8 +20,9 @@ public class Address {
     }
 
     public void addContact(Contact contactObj) {
-        if (!checkDuplicate(contactObj))
-            arrayList.add(contactObj);
+        if (!checkDuplicate(contactObj)) {
+            arrayList.add( contactObj );
+        }
         else
             System.out.println("Duplicate found");
     }
@@ -93,5 +94,10 @@ public class Address {
 
     public List<Contact> sortByZip() {
         return arrayList.stream().sorted(Comparator.comparingLong(Contact::getZip)).collect(Collectors.toList());
+    }
+
+    @Override
+    public String toString() {
+        return "AddressDetails " + arrayList;
     }
 }
