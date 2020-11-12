@@ -27,5 +27,13 @@ public class AddressBookTest {
         Assert.assertTrue( countContactByCity.get("Mahabubnagar").equals( 2 )
                 && countContactByCity.get( "Hosur" ).equals( 1 ) && countContactByCity.get( "Kurnool" ).equals( 1 ) && countContactByCity.get( "Kadapa" ).equals( 1 ));
     }
+    @Test
+    public void givenNewContact_WhenAdded_ShouldSyncWithDB() {
+        AddressBookSystem addressBookSystem = new AddressBookSystem();
+        addressBookSystem.readAddressBookData(DB_IO);
+        addressBookSystem.addContactToAddressBook("ab","Bunny","Balajinagar","vizag","AP",Long.parseLong( "92512"),Long.parseLong( "9869854127" ),"xyz@gmail.com","family",LocalDate.now());
+        boolean result = addressBookSystem.checkAddressBookInsyncWithDB("ab");
+        Assert.assertTrue( result );
+    }
 
 }
