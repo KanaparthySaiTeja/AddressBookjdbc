@@ -1,14 +1,41 @@
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Contact {
-    private String firstName;
-    private String lastName;
-    private long phoneNumber;
-    private String emailId;
-    private String address;
-    private String city;
-    private String state;
-    private long zip;
+    String firstName;
+    String lastName;
+    long phoneNumber;
+    String emailId;
+    String address;
+    String city;
+    String state;
+    long zip;
+    String type;
+    LocalDate date;
 
     public Contact() {
+    }
+
+    public Contact(String firstName, String lastName, String address, String city, String state, long phoneNumber,
+                   long zip, String emailId) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phoneNumber = phoneNumber;
+        this.emailId = emailId;
+    }
+    public Contact(String firstName, String lastName, String address, String city, String state, long zip, long phoneNumber, String emailId, String type) {
+        this(firstName, lastName, address, city, state, phoneNumber, zip, emailId );
+        this.type=type;
+    }
+
+    public Contact(String firstName, String lastName, String address, String city, String state, long zip, long phoneNumber, String emailId, String type,LocalDate date) {
+        this(firstName, lastName, address, city, state, zip, phoneNumber, emailId, type );
+        this.date = date;
     }
 
     public String getFirstName() {
@@ -75,19 +102,7 @@ public class Contact {
         this.zip = zip;
     }
 
-    public Contact(String firstName, String lastName, String address, String city, String state, long zip,
-                   long phoneNumber, String emailId) {
-        super();
-        this.firstName = firstName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phoneNumber = phoneNumber;
-        this.emailId = emailId;
-    }
+
 
     @Override
     public String toString() {
@@ -96,10 +111,28 @@ public class Contact {
         return pattern;
     }
 
-    public boolean equals(Object obj) {
-        Contact c = (Contact) obj;
-        if (c.getFirstName().equalsIgnoreCase(firstName) && c.getLastName().equalsIgnoreCase(lastName))
-            return true;
-        return false;
+//    public boolean equals(Object obj) {
+//        Contact c = (Contact) obj;
+//        if (c.getFirstName().equalsIgnoreCase(firstName) && c.getLastName().equalsIgnoreCase(lastName))
+//            return true;
+//        return false;
+//    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return phoneNumber == contact.phoneNumber &&
+                zip == contact.zip &&
+                Objects.equals( firstName, contact.firstName ) &&
+                Objects.equals( lastName, contact.lastName ) &&
+                Objects.equals( emailId, contact.emailId ) &&
+                Objects.equals( address, contact.address ) &&
+                Objects.equals( city, contact.city ) &&
+                Objects.equals( state, contact.state ) &&
+                Objects.equals( type, contact.type );
     }
+
 }
