@@ -139,4 +139,22 @@ public class AddressBookTest {
         long entries = addressBookSystem.countEntries( REST_IO );
         Assert.assertEquals( 3,entries);
     }
+    @Test
+    public void givenNewZipCodeForConatct_WhenUpdated_ShouldMatch200Response() {
+        AddressBookSystem addressBookSystem;
+        Contact[] arrayOfEmps = getContactList();
+        addressBookSystem = new AddressBookSystem( Arrays.asList( arrayOfEmps ) );
+
+        addressBookSystem.updateContactZipNo("vijay",786543,REST_IO);
+        Contact contact = addressBookSystem.getAddressBookContact("vijay");
+
+        String empJson = new Gson().toJson( contact );
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.header( "Content-Type","application/json" );
+        requestSpecification.body( empJson ) ;
+        Response response = requestSpecification.put("/contacts/"+contact.id);
+        int statusCode = response.getStatusCode();
+        Assert.assertEquals( 200, statusCode );
+
+    }
 }
