@@ -1,5 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.time.Duration;
 import java.util.List;
 public class AddressBookTest {
 
@@ -60,8 +62,37 @@ public class AddressBookTest {
         Instant threadStart = Instant.now();
         addressBookSystem.addContactsToAddressBookWithThreads(Arrays.asList(arrayOfContacts));
         Instant threadend = Instant.now();
-        System.out.println("Duration with thread: "+Duration.between( threadStart,threadend ));
+        System.out.println("Duration with thread: "+ Duration.between( threadStart,threadend ));
         Assert.assertEquals( 17,addressBookSystem.countEntries(DB_IO) );
+    }
+    @Before
+    public void setUp()  {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 3000;
+    }
+
+    private Contact[] getContactList() {
+        Response response = RestAssured.get("contacts");
+        System.out.println("Addressbook entries in json server\n" +response.asString());
+        Contact[] arrayOfEmps = new Gson().fromJson(response.asString(),Contact[].class);
+        return arrayOfEmps;
+    }
+
+    public Response addContactToJsonServer(Contact contact){
+        String empJson = new Gson().toJson( contact );
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.header( "Content-Type","application/json" );
+        requestSpecification.body( empJson ) ;
+        return requestSpecification.post("/contacts");
+    }
+
+    @Test
+    public void givenAddressDataInJsonServer_WhenRetrieved_ShouldMatchTheCount(){
+        AddressBookSystem addressBookSystem;
+        Contact[] arrayOfEmps = getContactList();
+        addressBookSystem = new AddressBookSystem( Arrays.asList(arrayOfEmps));
+        long entries = addressBookSystem.countEntries( REST_IO );
+        Assert.assertEquals( 2,entries);
     }
 
 }
